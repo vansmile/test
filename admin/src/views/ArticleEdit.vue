@@ -1,19 +1,22 @@
 <template>
     <div>
-      <h1>{{id?"编辑":"新建"}}分类</h1>
+      <h1>{{id?"编辑":"新建"}}文章</h1>
       <el-form label-width="120px" @submit.native.prevent="save">
-          <el-form-item label="上级分类">
-                <el-select v-model="model.parent" placeholder="请选择">
+          <el-form-item label="所属分类">
+                <el-select v-model="model.categories" placeholder="请选择" multiple>
                         <el-option
-                          v-for="item in parents"
-                          :key="item.value"
+                          v-for="item in categories"
+                          :key="item._id"
                           :label="item.name"
                           :value="item._id">
                         </el-option>
                 </el-select>
           </el-form-item>
-          <el-form-item label="名称">
-                <el-input v-model="model.name"></el-input>
+          <el-form-item label="标题">
+                <el-input v-model="model.title"></el-input>
+          </el-form-item>
+          <el-form-item label="详情">
+                <el-input v-model="model.body"></el-input>
           </el-form-item>
           <el-form-item>
               <el-button type="primary" native-type="submit">保存</el-button>
@@ -33,35 +36,35 @@
           return{
               model:{
               },
-              parents:[],
+              categories:[],
           } 
       },
       methods:{
           async save(){
                //let res
                if(this.id){
-                await this.$http.put(`rest/categories/${this.id}`,this.model)  
+                await this.$http.put(`rest/articles/${this.id}`,this.model)  
                }else{
-                await this.$http.post('rest/categories',this.model)
+                await this.$http.post('rest/articles',this.model)
                }
                
-               this.$router.push('/categories/list')
+               this.$router.push('/articles/list')
                this.$message({
                    type:'success',
                    message:'保存成功'
                })
           },
           async fetch(){
-                const res =  await this.$http.get(`rest/categories/${this.id}`)
+                const res =  await this.$http.get(`rest/articles/${this.id}`)
                 this.model= res.data
           },
-          async fetchParents(){
+          async fetchCategories(){
                 const res =  await this.$http.get(`rest/categories`)
-                this.parents= res.data
+                this.categories= res.data
           }
       },
       created(){
-          this.fetchParents()
+          this.fetchCategories()
           this.id && this.fetch()
       }
   }
