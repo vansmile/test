@@ -70,7 +70,7 @@
             <el-tab-pane size="small" label="技能" name= "skills">
                 <el-button  @click="model.skills.push({})"><i class="el-icon-plus"></i>添加技能</el-button>
                 <el-row type="flex" style="flex-wrap: wrap">
-                    <el-col :md="12" v-for="(item,i) in model.skills" :key="i">
+                    <el-col :md="24" v-for="(item,i) in model.skills" :key="i">
                       <el-form-item label="名称">
                         <el-input v-model='item.name'></el-input>
                       </el-form-item>
@@ -104,33 +104,6 @@
       </el-form>
     </div>
   </template>
-  
-  <style>
-    .avatar-uploader .el-upload {
-      border: 1px dashed #d9d9d9;
-      border-radius: 6px;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-    .avatar-uploader .el-upload:hover {
-      border-color: #409EFF;
-    }
-    .avatar-uploader-icon {
-      font-size: 28px;
-      color: #8c939d;
-      width: 5rem;
-      height: 5rem;
-      line-height: 5rem;
-      text-align: center;
-    }
-    .avatar {
-      width: 5rem;
-      height: 5rem;
-      display: block;
-    }
-  </style>
-
   <script>
   export default{
      props:{
